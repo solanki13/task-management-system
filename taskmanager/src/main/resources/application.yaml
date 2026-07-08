@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/taskmanager_db
-    username: postgres
-    password: Priyanka2796
+    url: jdbc:postgresql://ep-old-lab-ao4c4fhd.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require
+    username: neondb_owner
+    password: npg_a5pnH3DEcYXx
     driver-class-name: org.postgresql.Driver
 
   jpa:
