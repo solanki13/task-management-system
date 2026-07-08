@@ -61,7 +61,7 @@ function TaskPieChart({ tasks }: Props) {
               outerRadius={100}
               label
             >
-              {data.map((entry, index) => (
+              {data.map((_, index) => (
                 <Cell
                   key={index}
                   fill={COLORS[index]}

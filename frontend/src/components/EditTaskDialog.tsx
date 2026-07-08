@@ -28,8 +28,10 @@ function EditTaskDialog({
 }: Props) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [priority, setPriority] = useState("MEDIUM");
-  const [status, setStatus] = useState("TODO");
+  const [priority, setPriority] =
+    useState<Task["priority"]>("MEDIUM");
+  const [status, setStatus] =
+    useState<Task["status"]>("TODO");
 
   useEffect(() => {
     if (task) {
@@ -41,6 +43,8 @@ function EditTaskDialog({
   }, [task]);
 
   const handleUpdate = async () => {
+    if (!task) return;
+
     try {
       await updateTask(task.id, {
         title,
@@ -49,8 +53,11 @@ function EditTaskDialog({
         status,
       });
 
+      toast.success("Task Updated");
+
       refreshTasks();
       onClose();
+
     } catch (error) {
       console.error(error);
       toast.error("Failed to update task");
@@ -64,7 +71,6 @@ function EditTaskDialog({
       <DialogTitle>Edit Task</DialogTitle>
 
       <DialogContent>
-
         <TextField
           fullWidth
           margin="normal"
@@ -89,7 +95,9 @@ function EditTaskDialog({
           margin="normal"
           label="Priority"
           value={priority}
-          onChange={(e) => setPriority(e.target.value)}
+          onChange={(e) =>
+            setPriority(e.target.value as Task["priority"])
+          }
         >
           <MenuItem value="LOW">LOW</MenuItem>
           <MenuItem value="MEDIUM">MEDIUM</MenuItem>
@@ -102,19 +110,18 @@ function EditTaskDialog({
           margin="normal"
           label="Status"
           value={status}
-          onChange={(e) => setStatus(e.target.value)}
+          onChange={(e) =>
+            setStatus(e.target.value as Task["status"])
+          }
         >
           <MenuItem value="TODO">TODO</MenuItem>
           <MenuItem value="IN_PROGRESS">IN PROGRESS</MenuItem>
           <MenuItem value="COMPLETED">COMPLETED</MenuItem>
         </TextField>
-
       </DialogContent>
 
       <DialogActions>
-        <Button onClick={onClose}>
-          Cancel
-        </Button>
+        <Button onClick={onClose}>Cancel</Button>
 
         <Button
           variant="contained"

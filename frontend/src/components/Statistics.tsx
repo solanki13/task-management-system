@@ -49,13 +49,14 @@ function Statistics({ tasks }: Props) {
 
             {cards.map((card) => (
 
-                <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    md={3}
-                    key={card.title}
-                >
+               <Grid
+                   size={{
+                       xs: 12,
+                       sm: 6,
+                       md: 3,
+                   }}
+                   key={card.title}
+               >
 
                     <Paper
                         elevation={4}
@@ -70,10 +71,10 @@ function Statistics({ tasks }: Props) {
                             {card.title}
                         </Typography>
 
-                        <Typography
-                            variant="h3"
-                            fontWeight="bold"
-                        >
+                       <Typography
+                           variant="h3"
+                           sx={{ fontWeight: "bold" }}
+                       >
                             {card.value}
                         </Typography>
 

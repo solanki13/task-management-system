@@ -30,9 +30,8 @@ function Sidebar({ logout }: Props) {
       }}
     >
       <Typography
-        variant="h5"
-        fontWeight="bold"
-        sx={{ mb: 4 }}
+          variant="h5"
+          sx={{ fontWeight: "bold" }}
       >
         Task Manager
       </Typography>

@@ -49,10 +49,10 @@ function TaskCard({ task, onDelete, onEdit }: Props) {
         >
 
           {/* Left Side */}
-          <Typography
-            variant="h5"
-            fontWeight="bold"
-          >
+         <Typography
+             variant="h3"
+             sx={{ fontWeight: "bold" }}
+         >
             {task.title}
           </Typography>
 

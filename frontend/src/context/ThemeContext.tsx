@@ -1,10 +1,10 @@
 import {
   createContext,
-  useMemo,
   useState,
-  ReactNode,
+  useMemo,
 } from "react";
 
+import type { ReactNode } from "react";
 import {
   ThemeProvider,
   createTheme,

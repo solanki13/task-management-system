@@ -14,9 +14,8 @@ function Navbar({ onLogout, onAddTask, onExport, onExportPDF }: NavbarProps) {
     <Box sx={{ mb: 4 }}>
 
       <Typography
-        variant="h3"
-        fontWeight="bold"
-        sx={{ mb: 3 }}
+          variant="h3"
+          sx={{ fontWeight: "bold" }}
       >
         My Tasks
       </Typography>

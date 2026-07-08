@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Paper, TextField, Typography } from "@mui/material";
+import {Box, Button, Paper, TextField, Typography } from "@mui/material";
 import ProfileImageUpload from "../components/ProfileImageUpload";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -36,7 +36,7 @@ function Profile() {
         >
             <Paper sx={{ p: 4, width: 450 }}>
 
-                <Box textAlign="center">
+                <Box sx={{ textAlign: "center" }}>
 
                     <ProfileImageUpload />
 

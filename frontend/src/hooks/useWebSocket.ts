@@ -3,34 +3,26 @@ import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 
 function useWebSocket(refreshTasks: () => void) {
+  useEffect(() => {
+    const client = new Client({
+      webSocketFactory: () =>
+        new SockJS(import.meta.env.VITE_API_URL + "/ws"),
 
-    useEffect(() => {
+      reconnectDelay: 5000,
 
-        const client = new Client({
-
-            webSocketFactory: () =>
-                new SockJS("http://localhost:8083/ws"),
-
-            reconnectDelay: 5000,
-
-            onConnect: () => {
-
-                client.subscribe("/topic/tasks", () => {
-
-                    refreshTasks();
-
-                });
-
-            },
-
+      onConnect: () => {
+        client.subscribe("/topic/tasks", () => {
+          refreshTasks();
         });
+      },
+    });
 
-        client.activate();
+    client.activate();
 
-        return () => client.deactivate();
-
-    }, []);
-
+    return () => {
+      client.deactivate().catch(console.error);
+    };
+  }, [refreshTasks]);
 }
 
 export default useWebSocket;
