@@ -19,11 +19,14 @@ function App() {
                    </ProtectedRoute>
                }
            />
-            <Route
-                    path="/profile"
-                    element={<Profile />}
-                />
-        </Routes>
+           <Route
+               path="/profile"
+               element={
+                   <ProtectedRoute>
+                       <Profile />
+                   </ProtectedRoute>
+               }
+           />
     );
 
 }
