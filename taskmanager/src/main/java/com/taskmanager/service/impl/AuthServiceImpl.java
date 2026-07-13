@@ -1,5 +1,7 @@
 
 package com.taskmanager.service.impl;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.taskmanager.dto.request.LoginRequest;
 import com.taskmanager.dto.request.RegisterRequest;
@@ -30,9 +32,11 @@ public class AuthServiceImpl implements AuthService {
     public AuthResponse register(RegisterRequest request) {
 
         if (userRepository.existsByEmail(request.getEmail())) {
-            throw new BadRequestException("Email already exists");
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT,
+                    "User already exists"
+            );
         }
-
         User user = User.builder()
                 .fullName(request.getFullName())
                 .email(request.getEmail())

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Paper,
@@ -9,6 +10,8 @@ import {
 import { registerUser } from "../services/auth";
 
 function RegisterForm() {
+  const navigate = useNavigate();
+
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,18 +24,37 @@ function RegisterForm() {
       setError("");
       setMessage("");
 
-      const response = await registerUser({
+      await registerUser({
         fullName,
         email,
         password,
       });
 
-      localStorage.setItem("token", response.accessToken);
+      setMessage("Registration Successful! Redirecting to Login...");
 
-      setMessage("Registration Successful!");
+      // Redirect to Login page after 2 seconds
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+
     } catch (err: any) {
-      setError("Registration Failed");
       console.error(err);
+
+      // Backend returned an error message
+      const backendMessage =
+        err.response?.data?.message ||
+        err.response?.data?.error ||
+        "";
+
+      if (
+        backendMessage.toLowerCase().includes("already") ||
+        backendMessage.toLowerCase().includes("exists") ||
+        err.response?.status === 409
+      ) {
+        setError("User already registered. Please login.");
+      } else {
+        setError(backendMessage || "Registration Failed");
+      }
     }
   };
 
@@ -53,13 +75,13 @@ function RegisterForm() {
       </Typography>
 
       {message && (
-        <Alert severity="success">
+        <Alert severity="success" sx={{ mb: 2 }}>
           {message}
         </Alert>
       )}
 
       {error && (
-        <Alert severity="error">
+        <Alert severity="error" sx={{ mb: 2 }}>
           {error}
         </Alert>
       )}

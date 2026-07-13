@@ -17,6 +17,7 @@ function LoginForm() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+
   const handleLogin = async () => {
     try {
       setSuccess("");
@@ -27,12 +28,13 @@ function LoginForm() {
         password,
       });
 
-      localStorage.setItem(
-          "token",
-          response.accessToken
-      );
+      localStorage.setItem("token", response.accessToken);
 
-      setSuccess("Login Successful!");
+      setSuccess("Login Successful! Redirecting...");
+
+      setTimeout(() => {
+          navigate("/dashboard");
+      }, 1000);
 
       navigate("/dashboard");
     } catch (err) {
